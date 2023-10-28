@@ -1,7 +1,10 @@
 import 'package:bloc/bloc.dart';
+import 'package:bmi_calculator/bloc/cubit.dart';
+import 'package:bmi_calculator/bloc/states.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/bloc_observer.dart';
-import 'layout/home_page.dart';
+import 'layout/bmi_calculator.dart';
 
 void main() {
   Bloc.observer = MyBlocObserver();
@@ -13,9 +16,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
+    return  BlocProvider(
+      create: (context) => CubitBmi(),
+      child: BlocConsumer<CubitBmi, StatesBmi>(
+        listener: (context, state){},
+        builder: (context, state){
+          return const MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: BmiCalculator(),
+          );
+        },
+      ),
     );
   }
 }
